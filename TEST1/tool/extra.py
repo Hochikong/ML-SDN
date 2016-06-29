@@ -32,9 +32,15 @@ for i in lines:
         if x in tmp:
             propertys[i+1].append(x)
             break
+        else:
+            propertys[i+1].append('unknown')
+            break
     for x in payload_keys:
 	if x in tmp:
 	    propertys[i+1].append(x)
+            break
+        else:
+            propertys[i+1].append('unknown')
             break
 
 print('Extraction have finished')
