@@ -21,20 +21,20 @@ payload_keys = ['application/json','SOAPAction','<methodCall>']
 
 propertys = {}
 for i in lines:
-    propertys[i] = []
-    propertys[i].append(raw_pkt[i].src)
-    propertys[i].append(raw_pkt[i][IP].src)
-    propertys[i].append(raw_pkt[i].dst)
-    propertys[i].append(raw_pkt[i][IP].dst)
-    propertys[i].append(str(raw_pkt[i][IP].dport))
+    propertys[i+1] = []
+    propertys[i+1].append(raw_pkt[i].src)
+    propertys[i+1].append(raw_pkt[i][IP].src)
+    propertys[i+1].append(raw_pkt[i].dst)
+    propertys[i+1].append(raw_pkt[i][IP].dst)
+    propertys[i+1].append(str(raw_pkt[i][IP].dport))
     tmp = str(raw_pkt[i][Raw].load)
     for x in proto_keys:
         if x in tmp:
-            propertys[i].append(x)
+            propertys[i+1].append(x)
             break
     for x in payload_keys:
 	if x in tmp:
-	    propertys[i].append(x)
+	    propertys[i+1].append(x)
             break
 
 print('Extraction have finished')
