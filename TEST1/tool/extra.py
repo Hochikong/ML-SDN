@@ -32,16 +32,14 @@ for i in lines:
         if x in tmp:
             propertys[i+1].append(x)
             break
-        else:
-            propertys[i+1].append('unknown')
-            break
+    if len(propertys) == 5:
+        propertys[i+1].append('unknown')
     for x in payload_keys:
 	if x in tmp:
 	    propertys[i+1].append(x)
             break
-        else:
-            propertys[i+1].append('unknown')
-            break
+    if len(propertys) == 6:
+        propertys[i+1].append('unknown')
 
 print('Extraction have finished')
 name = raw_input("Please use a new file to save it: ")
