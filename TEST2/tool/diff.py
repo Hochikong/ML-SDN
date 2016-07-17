@@ -49,4 +49,6 @@ keys = range(result_length)
 
  
 print('The target packet location is lines: ',tmp)
+print('The decision tree pdf is tree.pdf')
+graph.write_pdf('tree.pdf')
 
