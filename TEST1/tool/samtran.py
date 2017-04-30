@@ -1,32 +1,37 @@
 import shelve
 import numpy as np
-from sklearn.feature_extraction import FeatureHasher
 filename = raw_input('Enter the sample file: ')
+print('Auto load ../data/newdic.dat ....')
 
 f = shelve.open(filename)
+dictfile = shelve.open('../data/newdic.dat')
+dict = dictfile['DICT']
+
 sample = f['res']
-hash = FeatureHasher(n_features=5, non_negative=True, input_type='string')
 
 res = []
 labels = ['RESTAPI', 'SOAPAPI', 'XMLRPC']
 res_labels = []
 
 for i in sample:
-    if 'application/json' in sample[i]:
-        f = hash.transform(sample[i])
-        res.append(f.toarray())
-        res_labels.append(labels[0])
-    if 'SOAPAction' in sample[i]:
-        g = hash.transform(sample[i])
-        res.append(g.toarray())
-        res_labels.append(labels[1])
-    if '<methodCall>' in sample[i]:
-        h = hash.transform(sample[i])
-        res.append(h.toarray())
-        res_labels.append(labels[2])
+    tmp = []
+    for x in sample[i]:
+        if x in dict:
+            tmp.append(dict[x])
+        if x == 'application/json':
+            res_labels.append(labels[0])
+        if x == 'SOAPAction':
+            res_labels.append(labels[1])
+        if x == '<methodCall>':
+            res_labels.append(labels[2])
+    res.append(tmp)
+
+tmp1 = []
+for i in range(3):
+    tmp1.append(np.vstack(tuple(res[i])))
 
 fres = {}
-fres['sample'] = np.vstack((res[0].reshape(1, 35), res[1].reshape(1, 35), res[2].reshape(1, 35)))
+fres['sample'] = tmp1
 fres['label'] = res_labels
 
 savefile = raw_input(

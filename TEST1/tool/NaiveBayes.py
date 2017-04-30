@@ -21,21 +21,28 @@ REST = 0
 XMLRPC = 0
 MISS = 0
 
+SOAPlines = []
+RESTlines = []
+XMLRPClines = []
+
 for i in digt_expdata['res']:
-    if len(digt_expdata['res'][i]) == 35:
+    if digt_expdata['res'][i].size == 35:
         if clf.predict(digt_expdata['res'][i])[0] == 'SOAPAPI':
             SOAP += 1
+            SOAPlines.append(i)
         if clf.predict(digt_expdata['res'][i])[0] == 'XMLRPC':
             XMLRPC += 1
+            XMLRPClines.append(i)
         if clf.predict(digt_expdata['res'][i])[0] == 'RESTAPI':
             REST += 1
+            RESTlines.append(i)
     else:
         MISS += 1
 
 end = time.clock()
 
-print("SOAP flows: ", SOAP)
-print("REST flows: ", REST)
-print("XMLRPC flows: ", XMLRPC)
+print("SOAP flows: ", SOAP, "Lines: ", SOAPlines)
+print("REST flows: ", REST, "Lines: ", RESTlines)
+print("XMLRPC flows: ", XMLRPC, "Lines: ", XMLRPClines)
 print("Cannot identify: ", MISS)
 print("Cost: %f seconds") % (end - start)

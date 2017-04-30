@@ -1,20 +1,30 @@
-from sklearn.feature_extraction import FeatureHasher
 import numpy as np
 import shelve
 
 inputfile = raw_input("Enter the raw feature file: ")
+print('Auto load ../data/newdic.dat ....')
+
 rawfile = shelve.open(inputfile)
 rawdata = rawfile['res']
+dictfile = shelve.open('../data/newdic.dat')
+dict = dictfile['DICT']
+
 res = {}
 
-h = FeatureHasher(n_features=5, non_negative=True, input_type='string')
-
 for i in rawdata:
-    f = h.transform(rawdata[i])
-    if len(f.toarray()) < 7:
-        res[i] = (f.toarray()).reshape(1, len(f.toarray())*5)
-    if len(f.toarray()) == 7:
-        res[i] = (f.toarray()).reshape(1, 35)
+    tmp = []
+    if len(rawdata[i]) == 7:
+        for x in rawdata[i]:
+            if x in dict:
+                tmp.append(dict[x])
+                res[i] = np.vstack(tuple(tmp))
+    if len(rawdata[i]) < 7:
+        for x in rawdata[i]:
+            if x in dict:
+                tmp.append(dict[x])
+        for t in range(7 - len(rawdata[i])):
+            tmp.append(dict['unknown'])
+        res[i] = np.vstack(tuple(tmp))
 
 savefile = raw_input(
     'Translate have finish,choose a new file to save the result: ')
