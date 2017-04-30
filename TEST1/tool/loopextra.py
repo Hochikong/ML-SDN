@@ -27,7 +27,7 @@ for i in lines:
         propertys[i + 1].append(raw_pkt[i][IPv6].src)
         propertys[i + 1].append(raw_pkt[i].dst)
         propertys[i + 1].append(raw_pkt[i][IPv6].dst)
-        propertys[i + 1].append(str(raw_pkt[i].dport))
+        propertys[i + 1].append('unknown')
     if Raw not in raw_pkt[i]:
         propertys[i + 1].append('unknown')
         propertys[i + 1].append('unknown')
