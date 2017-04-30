@@ -1,4 +1,5 @@
 import shelve
+import numpy as np
 from sklearn.feature_extraction import FeatureHasher
 filename = raw_input('Enter the sample file: ')
 
@@ -17,15 +18,15 @@ for i in sample:
         res_labels.append(labels[0])
     if 'SOAPAction' in sample[i]:
         g = hash.transform(sample[i])
-        res.append(f.toarray())
+        res.append(g.toarray())
         res_labels.append(labels[1])
     if '<methodCall>' in sample[i]:
         h = hash.transform(sample[i])
-        res.append(f.toarray())
+        res.append(h.toarray())
         res_labels.append(labels[2])
 
 fres = {}
-fres['sample'] = res
+fres['sample'] = np.vstack((res[0].reshape(1, 35), res[1].reshape(1, 35), res[2].reshape(1, 35)))
 fres['label'] = res_labels
 
 savefile = raw_input(

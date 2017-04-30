@@ -22,7 +22,7 @@ XMLRPC = 0
 MISS = 0
 
 for i in digt_expdata['res']:
-    if len(digt_expdata['res'][i]) == 7:
+    if len(digt_expdata['res'][i]) == 35:
         if clf.predict(digt_expdata['res'][i])[0] == 'SOAPAPI':
             SOAP += 1
         if clf.predict(digt_expdata['res'][i])[0] == 'XMLRPC':
