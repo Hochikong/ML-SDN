@@ -8,7 +8,7 @@ dicdata = dic['DICT']
 sample = f['res']
 
 res = []
-labels = ['RESTAPI','SOAPAPI','XMLRPC']
+labels = ['RESTAPI', 'SOAPAPI', 'XMLRPC']
 res_labels = []
 
 for i in sample:

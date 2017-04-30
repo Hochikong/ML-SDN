@@ -18,10 +18,16 @@ propertys = {}
 for i in lines:
     propertys[i + 1] = []
     propertys[i + 1].append(raw_pkt[i].src)
-    propertys[i + 1].append(raw_pkt[i][IP].src)
-    propertys[i + 1].append(raw_pkt[i].dst)
-    propertys[i + 1].append(raw_pkt[i][IP].dst)
-    propertys[i + 1].append(str(raw_pkt[i].dport))
+    if IP in raw_pkt[i]:
+        propertys[i + 1].append(raw_pkt[i][IP].src)
+        propertys[i + 1].append(raw_pkt[i].dst)
+        propertys[i + 1].append(raw_pkt[i][IP].dst)
+        propertys[i + 1].append(str(raw_pkt[i].dport))
+    if IPv6 in raw_pkt[i]:
+        propertys[i + 1].append(raw_pkt[i][IPv6].src)
+        propertys[i + 1].append(raw_pkt[i].dst)
+        propertys[i + 1].append(raw_pkt[i][IPv6].dst)
+        propertys[i + 1].append(str(raw_pkt[i].dport))
     if Raw not in raw_pkt[i]:
         propertys[i + 1].append('unknown')
         propertys[i + 1].append('unknown')
@@ -39,6 +45,8 @@ for i in lines:
                 break
         if len(propertys) == 6:
             propertys[i + 1].append('unknown')
+
+
 
 print('Extraction have finished.%s features has got' % len(file))
 name = raw_input("Please use a new file to save it: ")
