@@ -41,7 +41,7 @@ for i in lines:
             if len(propertys) == 6:
                 propertys[i + 1].append('unknown')
     else:
-        for x in range(6):
+        for x in range(7):
             propertys[i + 1].append('unknown')
 
 
