@@ -22,19 +22,20 @@ XMLRPC = 0
 MISS = 0
 
 for i in digt_expdata['res']:
-    if clf.predict(digt_expdata['res'][i])[0] == 'SOAPAPI':
-        SOAP += 1
-    if clf.predict(digt_expdata['res'][i])[0] == 'XMLRPC':
-        XMLRPC += 1
-    if clf.predict(digt_expdata['res'][i])[0] == 'RESTAPI':
-        REST += 1
+    if len(digt_expdata['res'][i]) == 7:
+        if clf.predict(digt_expdata['res'][i])[0] == 'SOAPAPI':
+            SOAP += 1
+        if clf.predict(digt_expdata['res'][i])[0] == 'XMLRPC':
+            XMLRPC += 1
+        if clf.predict(digt_expdata['res'][i])[0] == 'RESTAPI':
+            REST += 1
     else:
         MISS += 1
 
 end = time.clock()
 
-print("SOAP flows: " + SOAP)
-print("REST flows: " + REST)
-print("XMLRPC flows: " + XMLRPC)
-print("Cannot identify: " + MISS)
+print("SOAP flows: ", SOAP)
+print("REST flows: ", REST)
+print("XMLRPC flows: ", XMLRPC)
+print("Cannot identify: ", MISS)
 print("Cost: %f seconds") % (end - start)
