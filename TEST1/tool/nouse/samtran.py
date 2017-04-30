@@ -30,8 +30,14 @@ tmp1 = []
 for i in range(3):
     tmp1.append(np.vstack(tuple(res[i])))
 
+tmp2 = []
+for i in tmp1:
+    tmp2.append(i.reshape(1, 35))
+
+final = np.vstack(tuple(tmp2))
+
 fres = {}
-fres['sample'] = tmp1
+fres['sample'] = final
 fres['label'] = res_labels
 
 savefile = raw_input(
