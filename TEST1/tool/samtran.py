@@ -1,10 +1,10 @@
 import shelve
 import numpy as np
 filename = raw_input('Enter the sample file: ')
-print('Auto load ../data/newdic.dat ....')
+print('Auto load ../data/newdict.dat ....')
 
 f = shelve.open(filename)
-dictfile = shelve.open('../data/newdic.dat')
+dictfile = shelve.open('../data/newdict.dat')
 dict = dictfile['DICT']
 
 sample = f['res']

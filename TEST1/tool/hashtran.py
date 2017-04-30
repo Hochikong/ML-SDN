@@ -2,11 +2,11 @@ import numpy as np
 import shelve
 
 inputfile = raw_input("Enter the raw feature file: ")
-print('Auto load ../data/newdic.dat ....')
+print('Auto load ../data/newdict.dat ....')
 
 rawfile = shelve.open(inputfile)
 rawdata = rawfile['res']
-dictfile = shelve.open('../data/newdic.dat')
+dictfile = shelve.open('../data/newdict.dat')
 dict = dictfile['DICT']
 
 res = {}
