@@ -26,7 +26,7 @@ XMLRPClines = []
 
 start = time.clock()
 
-clf = tree.DecisionTreeClassifier
+clf = tree.DecisionTreeClassifier(criterion='entropy')
 clf.fit(sample_data, sample_label)
 
 for i in digt_expdata['res']:
