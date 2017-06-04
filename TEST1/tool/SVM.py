@@ -42,26 +42,46 @@ for i in digt_expdata['res']:
 
 end = time.clock()
 
+alltrueinfo = {'SOAP':len(correct_for_SOAP),'REST':len(correct_for_REST),'XMLRPC':len(correct_for_XMLRPC)}
+pretureinfo = {'SOAP':0,'REST':0,'XMLRPC':0}
+alltesttureinfo = {'SOAP':0,'REST':0,'XMLRPC':0}
+
+pretureinfo['SOAP'] += len(SOAPlines)
+pretureinfo['REST'] += len(RESTlines)
+pretureinfo['XMLRPC'] += len(XMLRPClines)
+
 tmp1 = []
 for i in SOAPlines:
+    if i in correct_for_SOAP:
+        alltesttureinfo['SOAP'] += 1
     if i not in correct_for_SOAP:
         tmp1.append(i)
 ERROR += len(tmp1)
 
 tmp1 = []
 for i in RESTlines:
+    if i in correct_for_REST:
+        alltesttureinfo['REST'] += 1
     if i not in correct_for_REST:
         tmp1.append(i)
 ERROR += len(tmp1)
 
 tmp1 = []
 for i in XMLRPClines:
+    if i in correct_for_XMLRPC:
+        alltesttureinfo['XMLRPC'] += 1
     if i not in correct_for_XMLRPC:
         tmp1.append(i)
 ERROR += len(tmp1)
 
-print("SOAP flows: ", SOAP, "Lines: ", SOAPlines)
-print("REST flows: ", REST, "Lines: ", RESTlines)
-print("XMLRPC flows: ", XMLRPC, "Lines: ", XMLRPClines)
+print("SOAP flows: ", SOAP, "Lines: ", SOAPlines,
+      "Recall: ",(float(alltesttureinfo['SOAP'])/float(alltrueinfo['SOAP'])),
+      "Precision: ",(float(alltesttureinfo['SOAP'])/float(pretureinfo['SOAP'])))
+print("REST flows: ", REST, "Lines: ", RESTlines,
+      "Recall: ",(float(alltesttureinfo['REST'])/float(alltrueinfo['REST'])),
+      "Precision: ",(float(alltesttureinfo['REST'])/float(pretureinfo['REST'])))
+print("XMLRPC flows: ", XMLRPC, "Lines: ", XMLRPClines,
+      "Recall: ",(float(alltesttureinfo['REST'])/float(alltrueinfo['REST'])),
+      "Precision: ",(float(alltesttureinfo['XMLRPC'])/float(pretureinfo['XMLRPC'])))
 print("Cannot identify: ", ERROR)
 print("Cost: %f seconds") % (end - start)
